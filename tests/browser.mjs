@@ -75,19 +75,20 @@ async function check(width, height, name) {
   assert.match(await dlg.locator(".sum").textContent(), /Total interest\s*\$0/);
 
   // booking validation + success + calendar download
-  await dlg.getByRole("tab", { name: "Book a test drive" }).click();
-  await dlg.getByRole("button", { name: "Reserve this test drive" }).click();
+  await dlg.getByRole("tab", { name: "Plan a test drive" }).click();
+  await dlg.getByRole("button", { name: "Preview my visit plan" }).click();
   await dlg.getByRole("alert").getByText(/enter your name/i).waitFor();
   await dlg.getByLabel("Full name").fill("Sam Rivera");
   await dlg.getByLabel("Email").fill("not-an-email");
-  await dlg.getByRole("button", { name: "Reserve this test drive" }).click();
+  await dlg.getByRole("button", { name: "Preview my visit plan" }).click();
   await dlg.getByRole("alert").getByText(/valid email/i).waitFor();
   await dlg.getByLabel("Email").fill("sam@example.com");
-  await dlg.getByRole("button", { name: "Reserve this test drive" }).click();
+  await dlg.getByRole("button", { name: "Preview my visit plan" }).click();
   await dlg.getByRole("alert").getByText(/time slot/i).waitFor();
   await dlg.locator(".times button").first().click();
-  await dlg.getByRole("button", { name: "Reserve this test drive" }).click();
-  await dlg.getByRole("status").getByText(/on the schedule/i).waitFor();
+  await dlg.getByRole("button", { name: "Preview my visit plan" }).click();
+  await dlg.getByRole("status").getByText(/visit plan is ready/i).waitFor();
+  await dlg.getByText(/no appointment was booked/i).waitFor();
   const [dl] = await Promise.all([page.waitForEvent("download"), dlg.getByRole("button", { name: "Add to calendar" }).click()]);
   assert.match(dl.suggestedFilename(), /^kestrel-test-drive-KV-\d{5}\.ics$/);
   await dlg.getByRole("button", { name: "Change time" }).click();
