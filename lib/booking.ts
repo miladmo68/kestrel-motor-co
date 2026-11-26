@@ -29,6 +29,6 @@ export function icsFile(title: string, day: string, time: string, ref: string): 
   const [hh, mm] = time.split(":");
   const start = `${y}${m}${d}T${hh}${mm}00`;
   const endH = String(Number(hh) + 1).padStart(2, "0");
-  return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Kestrel Motor Co//Test drive//EN", "BEGIN:VEVENT", `UID:${ref}@kestrel.example`,
-    `DTSTART:${start}`, `DTEND:${y}${m}${d}T${endH}${mm}00`, `SUMMARY:${title}`, "LOCATION:1180 Dufferin Works Road\\, Toronto", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+  return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Kestrel Motor Co//Demo plan//EN", "BEGIN:VEVENT", `UID:${ref}@kestrel.example`,
+    `DTSTART:${start}`, `DTEND:${y}${m}${d}T${endH}${mm}00`, `SUMMARY:${title}`, "DESCRIPTION:Illustrative demo only. No test drive appointment was booked.", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
 }

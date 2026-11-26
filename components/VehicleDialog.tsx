@@ -58,7 +58,7 @@ export function VehicleDialog({ vehicle, terms, setTerms, compared, onCompare, o
 
   function downloadIcs() {
     if (!v || !booked) return;
-    const blob = new Blob([icsFile(`Test drive: ${v.year} ${v.make} ${v.model}`, booked.day, booked.time, booked.ref)], { type: "text/calendar" });
+    const blob = new Blob([icsFile(`Demo visit plan: ${v.year} ${v.make} ${v.model}`, booked.day, booked.time, booked.ref)], { type: "text/calendar" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `kestrel-test-drive-${booked.ref}.ics`;
@@ -95,7 +95,7 @@ export function VehicleDialog({ vehicle, terms, setTerms, compared, onCompare, o
           <div className="vd-right">
             <div className="vd-tabs" role="tablist" aria-label="Finance or visit">
               <button role="tab" id="tab-fin" aria-selected={tab === "finance"} aria-controls="pane-fin" onClick={() => setTab("finance")}>Finance it</button>
-              <button role="tab" id="tab-visit" aria-selected={tab === "visit"} aria-controls="pane-visit" onClick={() => setTab("visit")}>Book a test drive</button>
+              <button role="tab" id="tab-visit" aria-selected={tab === "visit"} aria-controls="pane-visit" onClick={() => setTab("visit")}>Plan a test drive</button>
             </div>
 
             {tab === "finance" ? (
@@ -129,10 +129,10 @@ export function VehicleDialog({ vehicle, terms, setTerms, compared, onCompare, o
               </div>
             ) : booked ? (
               <div role="tabpanel" id="pane-visit" aria-labelledby="tab-visit" className="pane confirm">
-                <p className="eyebrow dark">Booked</p>
-                <h3 role="status">You&apos;re on the schedule.</h3>
-                <p>{booked.label} at {booked.time}. We&apos;ll have the {v.model} warmed up and the paperwork ready. A confirmation was prepared for {email}.</p>
-                <p className="refno mono">Reference {booked.ref}</p>
+                <p className="eyebrow dark">Demo plan</p>
+                <h3 role="status">Your visit plan is ready.</h3>
+                <p>{booked.label} at {booked.time} for {name.trim()}. This is an illustrative plan only: no appointment was booked, no vehicle is held and no email was sent to {email}.</p>
+                <p className="refno mono">Demo reference {booked.ref}</p>
                 <div className="actions">
                   <button className="btn btn-ink" type="button" onClick={downloadIcs}>Add to calendar</button>
                   <button className="btn btn-line" type="button" onClick={() => setBooked(null)}>Change time</button>
@@ -153,7 +153,7 @@ export function VehicleDialog({ vehicle, terms, setTerms, compared, onCompare, o
                 <label className="txt">Full name<input value={name} onChange={e => setName(e.target.value)} autoComplete="name" /></label>
                 <label className="txt">Email<input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" /></label>
                 {error && <p className="err" role="alert">{error}</p>}
-                <button className="btn btn-ink wide" type="submit">Reserve this test drive</button>
+                <button className="btn btn-ink wide" type="submit">Preview my visit plan</button>
               </form>
             )}
 
